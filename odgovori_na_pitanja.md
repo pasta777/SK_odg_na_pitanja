@@ -584,7 +584,7 @@ gde su a i b realni brojevi koji zadovoljavaju uslov da je diskriminanta Δ = -1
 
 Pored ovih tačaka, kriva uvek sadrži i jednu specijalnu, "beskonačno daleku" tačku, koju obeležavamo sa O.
 
-(Grafik pogledati na internetu.)
+<img width="454" height="338" alt="image" src="https://github.com/user-attachments/assets/4089c677-0699-4cd3-8ed2-9008fc66f57d" />
 
 ## K.31. Дефинисати елиптичку криву над коначним пољем.
 
