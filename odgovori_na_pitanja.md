@@ -23,6 +23,7 @@ Asimetrični:
 ## K.2. Цезарова и афина шифра и њихова криптоанализа
 
 Cezarova - f(C) = C + a (mod 26)
+
 Afina - f(C) = aC + b (mod 26), a je uzajamno prost sa 26
 
 Rešavanje Cezarove šifre se svodi na jednačinu sa jednom nepoznatom, dok kod afine šifre sa dve nepoznate. Kod afine se brutforsuje tako što se pretpostavlja najčešće slovo u šifratu poklapa sa najčešćim slovom u engleskom jeziku (E). Isto tako i za drugo slovo.
