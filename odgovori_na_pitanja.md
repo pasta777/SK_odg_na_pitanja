@@ -1380,7 +1380,7 @@ PLONK je moderan, efikasan i univerzalan ZK-SNARK sistem.
 
     - Inovacija: Stariji sistemi su imali veoma rigidna pravila za te jednačine. PLONK uvodi jednu, moćnu, univerzalnu formulu za "kapije" (gate constraints):
 
-    $L_i​⋅q_{L_i}​​+R_i​⋅q{R_i}​​+O_i​⋅q_{O_i}​​+q_{C_i}​​+L_i​⋅R_i​⋅q_{M_i}​​=0$
+    $L_i⋅q_{L_i}​+R_i⋅q_{R_i}​+O_i⋅q_{O_i}​+q_{C_i}​+L_i​⋅R_i⋅q_{M_i}​​=0$
 
     Objašnjenje: Ne moraš da pamtiš formulu, već ideju. L, R i O su leva, desna i izlazna "žica" jedne operacije. q vrednosti su "selektori" koje Dokazivač (Prover) unapred podesi. Menjanjem ovih q selektora, ova jedna ista formula može da predstavlja i sabiranje, i množenje, i bilo koju drugu operaciju.
 
