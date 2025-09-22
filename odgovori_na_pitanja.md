@@ -133,7 +133,7 @@ Ideja je sledeća:
 
 1. Aca -> Bob: Aca stavi poruku M u kutiju i zaključa je svojim katancem e_A. Pošalje je Bobu.
 
-2. Bob -> Aca: Bob ne može da otvori kutiju, ali može da doda svoj katanac e_B na nju. Sada kutija ima dva katanca. On je vraća Alisi.
+2. Bob -> Aca: Bob ne može da otvori kutiju, ali može da doda svoj katanac e_B na nju. Sada kutija ima dva katanca. On je vraća Aci.
 
 3. Aca -> Bob: Aca skida svoj katanac e_A sa kutije (jer ima ključ d_A). Na kutiji ostaje samo Bobov katanac. Ona je ponovo šalje Bobu.
 
@@ -151,7 +151,7 @@ Matematički, to izgleda ovako:
 
 4. (M^(e_B))^(d_B) = M
 
-## K.12. Алиса шаље Бобану поруку помоћу Меси-Омура криптосистема, и претпоставимо да је Цица видела целокупну комуникацију. Објаснити зашто Цица ипак не може да декриптује поруку.
+## K.12. Алиса шаље Бобу поруку помоћу Меси-Омура криптосистема, и претпоставимо да је Цица видела целокупну комуникацију. Објаснити зашто Цица ипак не може да декриптује поруку.
 
 Odgovor leži direktno u problemu diskretnog logaritma.
 
