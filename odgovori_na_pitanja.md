@@ -1527,6 +1527,274 @@ Protokol Semafor je sjajan primer kako se apstraktni koncepti — Aritmetizacija
 
     Semaphore je praktičan protokol koji koristi Merkle stabla za dokazivanje članstva u grupi i nullifiere za sprečavanje dvostrukog glasanja.
 
+## ZKP.Zadaci
+
+### 1. Нека је дато коначно поље Fp​, где је p=113. Нека су дати полиноми p(x)=2x^4−4x^3+4x^2−4x+2 и q(x)=x^3−x^2+x−1. Израчунати вероватноћу да се случајним избором броја из коначног поља Fp​ погоди заједничка нула полинома р и q.
+
+Ovo je problem koji se oslanja na Schwartz-Zippel lemu. Lema kaže da je verovatnoća da nasumični element bude koren nekog polinoma veoma mala. 
+
+Da bismo rešili zadatak, potrebna su nam dva podatka:
+
+1. Koliko elemenata ima u polju F113​?
+    
+    - Imamo 113 elemenata.
+
+2. Koliko zajedničkih nula (korena) imaju polinomi p(x) i q(x)?
+
+    - q(x) ima 3 nule koje se poklapaju sa nulama p(x), tako da ova dva polinoma imaju zajedničke nule.
+
+Verovatnoća je zato 3/113.
+
+### 3. Написати Circom код за коло којим се проверава да ли особа за дату јавну вредност Посејдон хеша зна број чијим се хеширањем добија та вредност.
+
+```
+pragma circom 2.0.0;
+
+include "circomlib/circuits/poseidon.circom";
+
+template PoseidonVerifier() {
+    // 1. Ulazi (Inputs)
+    signal input secret;      // Privatni ulaz: tajni broj koji samo Dokazivač zna
+    signal input publicHash; // Javni ulaz: heš koji je svima poznat
+
+    // 2. Komponenta
+    // Pozivamo Poseidon hešer iz biblioteke. Očekuje 1 ulaz i daje 1 izlaz.
+    component hasher = Poseidon(1);
+
+    // 3. Povezivanje "žica"
+    // Kažemo da ulaz u hešer treba da bude naš tajni broj.
+    hasher.inputs[0] <== secret;
+
+    // 4. Ograničenje (Constraint)
+    // Ovo je srž kola. Namećemo ograničenje da izlaz iz hešera
+    // MORA BITI JEDNAK javnom hešu.
+    hasher.out === publicHash;
+}
+
+// Glavna komponenta koja pokreće naše kolo.
+// Deklarišemo da je 'publicHash' javni ulaz za ceo ZK-SNARK.
+component main {public [publicHash]} = PoseidonVerifier();
+
+```
+
+### 5. Potapanje brodova
+
+```circom
+
+/*
+
+Potapanje brodova (eng. Battleship) je igra koju igraju dva igrača.
+
+Svaki igrač rasporedjuje svoje brodove na kvadratnu tablu
+
+
+Više o igri možete pročitati ovde: https://en.wikipedia.org/wiki/Battleship_(game)
+
+*/
+
+
+pragma circom 2.1.6;
+
+
+include "circomlib/poseidon.circom";
+
+include "circomlib/comparators.circom";
+
+include "circomlib/mux1.circom";
+
+
+template Tabla(N) {
+
+signal input tabla [N][N];
+
+signal input ii;
+
+signal input jj;
+
+signal output odgovor;
+
+/* prvi pokušaj: jednostavno proveravamo da li se podmornica nalazi
+
+na polju sa koordinatama ii i jj. Ako se nalazi vraćamo 1, u suprotnom vraćamo 0:
+
+
+component pogodak = IsEqual();
+
+pogodak.in[0] <== tabla[ii][jj];
+
+pogodak.in[1] <== 1;
+
+odgovor <== pogodak.out;
+
+
+Ovaj kod neće raditi jer ii i jj nisu poznati u trenutku kompilacije,
+
+pa ne smemo da ih koristimo za pristupanje matrici tabla[N][N],
+
+jer mogu da budu van opsega
+
+
+drugi pokušaj:
+
+signal pogodak;
+
+component polje = Mux1();
+
+for(var i=0; i<N; i++)
+
+{
+
+    for(var j=0; j<N; j++)
+
+    {
+
+        if(i==ii)
+
+        {
+
+            if(j==jj)
+
+            {
+
+               polje.c[0]<==0;
+
+               polje.c[1]<==1;
+
+               polje.s <== tabla[i][j];
+
+               pogodak <== polje.out; 
+
+            }
+
+        }
+
+    }
+
+}
+
+odgovor <== pogodak;       
+
+
+Ni ovaj kod neće raditi. Neophodno je da aritmetizujemo if-ove.
+
+To radimo koristeći multipleksere. Za multiplekser imamo gotov template
+
+Mux1 u circomlib/mux1.circom
+
+*/
+
+
+// treći (konačno ispravan) pokušaj:
+
+/* U svakoj iteraciji dvostruke for petlje ćemo proveravati da li smo
+
+naišli na polje koje je gadjao protivnik. Dakle, moramo da izvršimo NxN
+
+provera za obe koordinate. Pošto se deklaracija component-i ne može
+
+vršiti u for petlji, moramo sve componente da deklarišemo pre for petlje  */
+
+component jednakii[N][N];
+
+component jednakij[N][N];
+
+component polje[N][N];
+
+var pogodak = 0;
+
+/* ako hoćemo da budemo maksimalno formalni i da svuda budemo
+
+pokriveni constraint-ovima onda bi umesto var trebalo da koristimo
+
+NxN matricu signala */
+
+for(var i=0; i<N; i++)
+
+{
+
+    for(var j=0; j<N; j++)
+
+    {
+
+        jednakii[i][j]=IsEqual();
+
+        jednakii[i][j].in[0] <==ii;
+
+        jednakii[i][j].in[1] <==i;
+
+
+        jednakij[i][j]=IsEqual();
+
+        jednakij[i][j].in[0] <==jj;
+
+        jednakij[i][j].in[1] <==j;
+
+
+        polje[i][j]=Mux1();
+
+        polje[i][j].c[0] <== 0;
+
+        polje[i][j].c[1] <== tabla[i][j];
+
+        polje[i][j].s <== jednakii[i][j].out * jednakij[i][j].out;
+
+/* ako smo naišli na polje koje je gadjao protivnik (tj. ako je selektorski
+
+bit jednak 1), onda je izlaz iz multipleksera vrednost koja se nalazi na tom polju
+
+(tj. vrednost tabla[i][j]), a za sva ostala polja izlaz je 0 */
+
+        pogodak += polje[i][j].out;
+
+/* sabiramo sve izlaze, tj. sabiramo 24 nule i vrednost na polju
+
+koje je gadjao protivnik (dakle, pogodak če imati vrednost 0 ili 1) */
+
+    }
+
+}
+
+odgovor <== pogodak;
+
+}
+
+
+component main {public [ii, jj]} = Tabla(5);
+
+
+//primer inputa:
+
+
+/* INPUT = {
+
+"tabla": [["0","1","1","0","1"],["0","0","0","0","1"],
+
+["1","1","1","0","1"],["0","0","0","0","1"],["0","0","1","1","0"]],
+
+"ii": "1",
+
+"jj": "2"
+
+} */
+
+
+/*
+
+Ovo je tabla koju šaljemo kao input
+
+0 1 1 0 1
+
+0 0 0 0 1
+
+1 1 1 0 1
+
+0 0 0 0 1
+
+0 0 1 1 0
+
+*/
+
+``` 
 
 # Blockhain
 
@@ -2393,3 +2661,98 @@ Tehnički, ključna stvar kod ERC721 je što svaki token ima jedinstveni tokenId
 
     - ERC721: Za jedinstvene, nezamenljive stvari (NFT). Kao Mona Liza.
 
+## BC.Zadaci
+
+### 1. Имплементирати паметан уговор PetStore (Implementirati pametan ugovor PetStore)
+
+```solidity
+// SPDX-License-Identifier: MIT
+pragma solidity ^0.8.0;
+
+/**
+ * @title PetStore
+ * @dev Pametni ugovor za prodavnicu kućnih ljubimaca.
+ */
+contract PetStore {
+
+    // 1. Struktura podataka za predstavljanje kućnih ljubimaca
+    struct Pet {
+        uint id;
+        string name;
+        uint price; // Cena u Wei
+        address owner;
+        bool forSale;
+    }
+
+    // 3. Promenljive za upravljanje prodavnicom
+    address public storeOwner;
+    uint public petCounter;
+
+    // 2. Mapa za čuvanje kućnih ljubimaca
+    mapping(uint => Pet) public pets;
+
+    // 6. Događaji
+    event PetAdded(uint id, string name, uint price);
+    event PetBought(uint id, address indexed oldOwner, address indexed newOwner, uint price);
+
+    constructor() {
+        storeOwner = msg.sender;
+    }
+
+    /**
+     * @dev Dodaje novog kućnog ljubimca u prodavnicu. Samo vlasnik prodavnice.
+     * @param _name Ime novog ljubimca.
+     * @param _price Cena novog ljubimca u Wei.
+     */
+    function addPet(string memory _name, uint _price) public {
+        // 5. Kontrola pristupa
+        require(msg.sender == storeOwner, "Only the store owner can add pets.");
+        
+        petCounter++;
+        uint newPetId = petCounter;
+        
+        pets[newPetId] = Pet({
+            id: newPetId,
+            name: _name,
+            price: _price,
+            owner: storeOwner,
+            forSale: true
+        });
+        
+        emit PetAdded(newPetId, _name, _price);
+    }
+
+    /**
+     * @dev Vraća detalje o kućnom ljubimcu na osnovu ID-ja.
+     * @param _id ID ljubimca za pretragu.
+     */
+    function getPet(uint _id) public view returns (Pet memory) {
+        return pets[_id];
+    }
+
+    /**
+     * @dev Omogućava korisniku da kupi ljubimca slanjem tačnog iznosa.
+     * @param _id ID ljubimca koji se kupuje.
+     */
+    function buyPet(uint _id) public payable {
+        Pet storage petToBuy = pets[_id];
+        
+        // Provera uslova
+        require(petToBuy.id != 0, "Pet does not exist.");
+        require(petToBuy.forSale, "This pet is not for sale.");
+        require(msg.value == petToBuy.price, "Incorrect amount of Ether sent.");
+
+        address previousOwner = petToBuy.owner;
+
+        // Ažuriranje stanja
+        petToBuy.owner = msg.sender;
+        petToBuy.forSale = false;
+        
+        emit PetBought(_id, previousOwner, msg.sender, msg.value);
+
+        // Slanje novca
+        (bool sent, ) = payable(previousOwner).call{value: msg.value}("");
+        require(sent, "Failed to send Ether to the owner.");
+    }
+}
+```
