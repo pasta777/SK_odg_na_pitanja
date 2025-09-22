@@ -1547,7 +1547,7 @@ Verovatnoća je zato 3/113.
 
 ### 3. Написати Circom код за коло којим се проверава да ли особа за дату јавну вредност Посејдон хеша зна број чијим се хеширањем добија та вредност.
 
-```
+```circom
 pragma circom 2.0.0;
 
 include "circomlib/circuits/poseidon.circom";
