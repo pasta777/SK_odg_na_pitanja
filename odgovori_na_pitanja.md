@@ -1468,7 +1468,7 @@ Protokol Semafor je sjajan primer kako se apstraktni koncepti — Aritmetizacija
 
     - SNARK (Succinct Non-Interactive Argument of Knowledge) nudi veoma male dokaze i brzu verifikaciju , ali često zahteva trusted setup.
 
-    - STARK (Scalable Transparent Argument of Knowledge) ne zahteva trusted setup (transparentan je) i otporan je на kvantne kompjutere, ali ima veće dokaze.
+    - STARK (Scalable Transparent Argument of Knowledge) ne zahteva trusted setup (transparentan je) i otporan je nа kvantne kompjutere, ali ima veće dokaze.
 
 - Izgradnja SNARK-a: Proces počinje Aritmetizacijom, gde se program pretvara u sistem jednačina (ograničenja). Tajni podaci (svedok) se predstavljaju kao polinomi, a na njih se Dokazivač obavezuje pomoću Polinomskih komitmenata kao što je KZG.
 
