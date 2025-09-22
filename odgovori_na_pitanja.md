@@ -135,7 +135,7 @@ Ideja je sledeća:
 
 2. Bob -> Aca: Bob ne može da otvori kutiju, ali može da doda svoj katanac e_B na nju. Sada kutija ima dva katanca. On je vraća Aci.
 
-3. Aca -> Bob: Aca skida svoj katanac e_A sa kutije (jer ima ključ d_A). Na kutiji ostaje samo Bobov katanac. Ona je ponovo šalje Bobu.
+3. Aca -> Bob: Aca skida svoj katanac e_A sa kutije (jer ima ključ d_A). Na kutiji ostaje samo Bobov katanac. On ga ponovo šalje Bobu.
 
 4. Kraj: Bob dobija kutiju sa samo svojim katancem, otključava je svojim ključem d_B i čita poruku M.
 
