@@ -748,7 +748,7 @@ Polardov metod radi brzo samo ako je p-1 "gladak" broj (ima male proste faktore)
 
 Lenstra je razmišljao: "Šta ako bismo mogli da menjamo grupu, umesto da smo zaglavljeni sa onom čija je veličina p-1?"
 
-1. ožemo da izaberemo nasumičnu eliptičku krivu E nad poljem Z_p (iako mi ne znamo p).
+1. Možemo da izaberemo nasumičnu eliptičku krivu E nad poljem Z_p (iako mi ne znamo p).
 
 2. Ta kriva će imati neki broj tačaka, N, koji je unutar Hasseovog opsega.
 
