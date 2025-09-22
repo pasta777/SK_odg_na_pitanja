@@ -842,6 +842,57 @@ Ukratko, Lenstrin metod je kao da Polardovom metodu date beskonačno mnogo šans
 
     - Kriptoanaliza: ECC takođe daje nove alate za napad na RSA, kao što je Lenstrin metod faktorizacije.
 
+## K.Zadaci
+
+### 1. Алиса и Бобан користе Дифи-Хелманов криптосистем са параметрима p=29 и g=2 (2 је генератор Z₂₉).
+
+a) Ако је Алисин тајни кључ 12 одредити њен јавни кључ.
+
+A = 2^12 (mod 29) = 2^5 * 2^5 * 2^2 (mod 29) = 7
+
+б) Бобан је изабрао јавни кључ 5. Приказати како се рачуна усаглашени кључ.
+
+K = 5^12 (mod 29) = (5^3)^4 (mod 29) = 9^4 (mod 29) = 23 * 23 (mod 29) = 7
+
+### 2. Одредити све тачке елиптичке криве y² = x³ + x + 3 над пољем Z₇.
+
+Moguće vrednosti za y^2 su {0, 1, 2, 3, 4}
+
+Za x = 0:
+y² = 0³ + 0 + 3 = 3. Vrednost 3 nije u skupu {0, 1, 2, 4}, tako da nema tačaka.
+
+Za x = 1:
+y² = 1³ + 1 + 3 = 5. Vrednost 5 nije u skupu {0, 1, 2, 4}, tako da nema tačaka.
+
+Za x = 2:
+y² = 2³ + 2 + 3 = 8 + 5 = 13 ≡ 6 (mod 7). Vrednost 6 nije u skupu {0, 1, 2, 4}, tako da nema tačaka.
+
+Za x = 3:
+y² = 3³ + 3 + 3 = 27 + 6 = 33 ≡ 5 (mod 7). Vrednost 5 nije u skupu {0, 1, 2, 4}, tako da nema tačaka.
+
+Za x = 4:
+y² = 4³ + 4 + 3 = 64 + 7 = 71 ≡ 1 (mod 7). Vrednost 1 jeste u skupu. Sada tražimo y:
+
+- Ako je y² = 1, onda je y = 1 ili y = 6.
+
+- Dobijamo tačke: (4, 1) i (4, 6).
+
+Za x = 5:
+y² = 5³ + 5 + 3 = 125 + 8 = 133 ≡ 0 (mod 7). Vrednost 0 jeste u skupu. Sada tražimo y:
+
+- Ako je y² = 0, onda je y = 0.
+
+- Dobijamo tačku: (5, 0).
+
+Za x = 6:
+y² = 6³ + 6 + 3 = 216 + 9 = 225 ≡ 1 (mod 7). Vrednost 1 jeste u skupu. Sada tražimo y:
+
+- Ako je y² = 1, onda je y = 1 ili y = 6.
+
+- Dobijamo tačke: (6, 1) i (6, 6).
+
+Rešenje: { O, (4, 1), (4, 6), (5, 0), (6, 1), (6, 6) }
+
 # ZKP
 
 ## ZKP.1. Zero Knowledge proofs i ilustrativni primeri.
