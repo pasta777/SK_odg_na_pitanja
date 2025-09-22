@@ -2300,11 +2300,11 @@ Tehnički, ključna stvar kod ERC721 je što svaki token ima jedinstveni tokenId
 
 ## BC.Rezime
 
-1. Osobine blokčejna: Glavne karakteristike su decentralizacija (nema glavnog šefa), nepromenljivost (podaci se ne mogu menjati, kao crvena istina u Umineko), transparentnost i sigurnost zasnovana na kriptografiji.
+1. Osobine blokčejna: Glavne karakteristike su decentralizacija (nema glavnog šefa), nepromenljivost (podaci se ne mogu menjati), transparentnost i sigurnost zasnovana na kriptografiji.
 
 2. Prednosti i mane: Prednosti su veća sigurnost, efikasnost i eliminacija posrednika. Mane su pre svega problemi sa skalabilnošću (brzinom) i ogromna potrošnja energije kod nekih sistema (PoW).
 
-3. Primene: Nije samo za kriptovalute. Koristi se u finansijama, lancima snabdevanja, glasanju, zdravstvu, i mnogim drugim industrijama. Kao Lelouchov Geass, jedna tehnologija sa bezbroj primena.
+3. Primene: Nije samo za kriptovalute. Koristi se u finansijama, lancima snabdevanja, glasanju, zdravstvu, i mnogim drugim industrijama.
 
 4. Izazovi za usvajanje: Glavne prepreke su nedostatak jasnih zakona (regulativa), problemi sa skalabilnošću, troškovi implementacije i nedostatak komunikacije između različitih blokčejna (interoperabilnost).
 
