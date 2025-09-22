@@ -2663,7 +2663,7 @@ Tehnički, ključna stvar kod ERC721 je što svaki token ima jedinstveni tokenId
 
 ## BC.Zadaci
 
-### 1. Имплементирати паметан уговор PetStore (Implementirati pametan ugovor PetStore)
+### 1. Имплементирати паметан уговор PetStore.
 
 ```solidity
 // SPDX-License-Identifier: MIT
