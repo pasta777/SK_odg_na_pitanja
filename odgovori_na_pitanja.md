@@ -1577,7 +1577,7 @@ component main {public [publicHash]} = PoseidonVerifier();
 
 ```
 
-### 5. Potapanje brodova
+### 3. Potapanje brodova
 
 ```circom
 
